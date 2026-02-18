@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -7,26 +9,36 @@
 
 <body style="text-align:center;font-family:Arial">
 
-<h1>مرحبا بك في منصة افهم نفسك</h1>
-<p>منصة تقدم محتوى نفسي وتطوير ذات</p>
+<h1>تسجيل رقم الموبايل</h1>
 
-<input id="phone" placeholder="ادخل رقم الموبايل">
+<select id="country">
+  <option value="+20">مصر +20</option>
+  <option value="+966">السعودية +966</option>
+  <option value="+1">أمريكا +1</option>
+  <option value="+971">الإمارات +971</option>
+</select>
+
+<br><br>
+
+<input id="phone" placeholder="ادخل رقم الموبايل بدون كود الدولة">
+
 <br><br>
 
 <button onclick="register()">تسجيل</button>
 
 <script>
 function register() {
+    let country = document.getElementById("country").value;
     let phone = document.getElementById("phone").value;
 
     if(phone === ""){
         alert("من فضلك ادخل رقم الموبايل");
     } else {
-        alert("تم التسجيل بنجاح");
+        let fullNumber = country + phone;
+        alert("تم التسجيل على الرقم: " + fullNumber);
     }
 }
 </script>
 
 </body>
 </html>
-
