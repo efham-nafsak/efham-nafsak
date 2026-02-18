@@ -7,86 +7,128 @@
 
 <style>
 body{
-    text-align:center;
-    font-family:Arial;
-    background:#f4f6f9;
-    padding-top:50px;
+    margin:0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
 }
 
-.container{
+.card{
     background:white;
-    width:300px;
-    margin:auto;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    width:350px;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    text-align:center;
 }
 
-select,input,button{
+h2{margin-bottom:10px;}
+p{color:gray;font-size:14px;}
+
+input,select{
     width:100%;
-    padding:10px;
-    margin-top:10px;
-    border-radius:6px;
-    border:1px solid #ccc;
+    padding:12px;
+    margin-top:15px;
+    border-radius:10px;
+    border:1px solid #ddd;
     font-size:14px;
 }
 
 button{
-    background:#007bff;
-    color:white;
+    width:100%;
+    padding:12px;
+    margin-top:20px;
+    border-radius:10px;
     border:none;
+    background:#667eea;
+    color:white;
+    font-size:16px;
     cursor:pointer;
+    transition:0.3s;
 }
 
 button:hover{
-    background:#0056b3;
+    background:#5a67d8;
 }
+
+.hidden{display:none;}
+
+.success{color:green;margin-top:15px;}
+.error{color:red;margin-top:15px;}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-<h2>تسجيل رقم الموبايل</h2>
+<div class="card">
 
-<select id="country">
-  <option value="+20">مصر +20</option>
-  <option value="+258">موزمبيق +258</option>
-  <option value="+222">موريتانيا +222</option>
-  <option value="+386">سلوفينيا +386</option>
-  <option value="+220">جامبيا +220</option>
-  <option value="+62">إندونيسيا +62</option>
-</select>
+<!-- صفحة التسجيل -->
+<div id="registerBox">
+    <h2>تسجيل رقم الموبايل</h2>
+    <p>ادخل رقمك لتفعيل الحساب</p>
 
-<input id="phone" placeholder="ادخل رقم الموبايل">
+    <select id="country">
+      <option value="+20">🇪🇬 مصر +20</option>
+      <option value="+258">🇲🇿 موزمبيق +258</option>
+      <option value="+222">🇲🇷 موريتانيا +222</option>
+      <option value="+386">🇸🇮 سلوفينيا +386</option>
+      <option value="+220">🇬🇲 جامبيا +220</option>
+      <option value="+62">🇮🇩 إندونيسيا +62</option>
+    </select>
 
-<button onclick="register()">تسجيل</button>
+    <input id="phone" placeholder="ادخل رقم الموبايل">
+    <button onclick="sendOTP()">إرسال كود</button>
+    <div id="regMessage"></div>
+</div>
+
+<!-- صفحة إدخال الكود -->
+<div id="otpBox" class="hidden">
+    <h2>ادخل كود التفعيل</h2>
+    <p>تم إرسال كود إلى رقمك</p>
+
+    <input id="otpInput" placeholder="ادخل الكود">
+    <button onclick="verifyOTP()">تأكيد</button>
+    <div id="otpMessage"></div>
+</div>
 
 </div>
 
 <script>
-function register() {
 
-    let country = document.getElementById("country").value;
+let generatedOTP = "";
+
+function sendOTP(){
     let phone = document.getElementById("phone").value.trim();
+    let regMessage = document.getElementById("regMessage");
 
     if(phone === ""){
-        alert("من فضلك ادخل رقم الموبايل");
+        regMessage.innerHTML = "<div class='error'>ادخل رقم الموبايل</div>";
         return;
     }
 
-    let fullNumber = country + phone;
+    // توليد كود عشوائي (تجربة فقط)
+    generatedOTP = Math.floor(100000 + Math.random() * 900000);
 
-    let numbers = JSON.parse(localStorage.getItem("numbers")) || [];
+    console.log("OTP للتجربة:", generatedOTP); // يظهر في Console
 
-    numbers.push(fullNumber);
-
-    localStorage.setItem("numbers", JSON.stringify(numbers));
-
-    alert("تم التسجيل بنجاح");
-
-    document.getElementById("phone").value = "";
+    document.getElementById("registerBox").classList.add("hidden");
+    document.getElementById("otpBox").classList.remove("hidden");
 }
+
+function verifyOTP(){
+    let userOTP = document.getElementById("otpInput").value;
+    let otpMessage = document.getElementById("otpMessage");
+
+    if(userOTP == generatedOTP){
+        otpMessage.innerHTML = "<div class='success'>تم التفعيل بنجاح ✔</div>";
+    }else{
+        otpMessage.innerHTML = "<div class='error'>الكود غير صحيح</div>";
+    }
+}
+
 </script>
 
 </body>
