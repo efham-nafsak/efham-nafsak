@@ -2,12 +2,52 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>افهم نفسك</title>
+
+<style>
+body{
+    text-align:center;
+    font-family:Arial;
+    background:#f4f6f9;
+    padding-top:50px;
+}
+
+.container{
+    background:white;
+    width:300px;
+    margin:auto;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+select,input,button{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    font-size:14px;
+}
+
+button{
+    background:#007bff;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+</style>
 </head>
 
-<body style="text-align:center;font-family:Arial">
+<body>
 
-<h1>تسجيل رقم الموبايل</h1>
+<div class="container">
+<h2>تسجيل رقم الموبايل</h2>
 
 <select id="country">
   <option value="+20">مصر +20</option>
@@ -18,21 +58,17 @@
   <option value="+62">إندونيسيا +62</option>
 </select>
 
-<br><br>
-
 <input id="phone" placeholder="ادخل رقم الموبايل">
-
-<br><br>
 
 <button onclick="register()">تسجيل</button>
 
-<h2>الأرقام المسجلة:</h2>
-<ul id="numbersList"></ul>
+</div>
 
 <script>
 function register() {
+
     let country = document.getElementById("country").value;
-    let phone = document.getElementById("phone").value;
+    let phone = document.getElementById("phone").value.trim();
 
     if(phone === ""){
         alert("من فضلك ادخل رقم الموبايل");
@@ -42,26 +78,15 @@ function register() {
     let fullNumber = country + phone;
 
     let numbers = JSON.parse(localStorage.getItem("numbers")) || [];
+
     numbers.push(fullNumber);
 
     localStorage.setItem("numbers", JSON.stringify(numbers));
 
-    displayNumbers();
+    alert("تم التسجيل بنجاح");
+
+    document.getElementById("phone").value = "";
 }
-
-function displayNumbers() {
-    let numbers = JSON.parse(localStorage.getItem("numbers")) || [];
-    let list = document.getElementById("numbersList");
-    list.innerHTML = "";
-
-    numbers.forEach(function(num){
-        let li = document.createElement("li");
-        li.textContent = num;
-        list.appendChild(li);
-    });
-}
-
-displayNumbers();
 </script>
 
 </body>
