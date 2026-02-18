@@ -13,32 +13,10 @@
 
 <select id="country">
   <option value="+20">مصر +20</option>
-  <option value="+966">السعودية +966</option>
-  <option value="+1">أمريكا +1</option>
-  <option value="+971">الإمارات +971</option>
+  <option value="+258">موزمبيق +258</option>
+  <option value="+222">موريتانيا +222</option>
+  <option value="+386">سلوفينيا +386</option>
+  <option value="+220">جامبيا +220</option>
+  <option value="+62">إندونيسيا +62</option>
 </select>
 
-<br><br>
-
-<input id="phone" placeholder="ادخل رقم الموبايل بدون كود الدولة">
-
-<br><br>
-
-<button onclick="register()">تسجيل</button>
-
-<script>
-function register() {
-    let country = document.getElementById("country").value;
-    let phone = document.getElementById("phone").value;
-
-    if(phone === ""){
-        alert("من فضلك ادخل رقم الموبايل");
-    } else {
-        let fullNumber = country + phone;
-        alert("تم التسجيل على الرقم: " + fullNumber);
-    }
-}
-</script>
-
-</body>
-</html>
