@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
+<meta charset="UTF-8">
 <title>افهم نفسك</title>
 </head>
 
 <body style="text-align:center;font-family:Arial">
 
 <h1>مرحبا بك في منصة افهم نفسك</h1>
-
 <p>منصة تقدم محتوى نفسي وتطوير ذات</p>
 
-<input placeholder="ادخل رقم الموبايل">
+<input id="phone" placeholder="ادخل رقم الموبايل">
 <br><br>
 
-<button>تسجيل</button>
+<button onclick="register()">تسجيل</button>
+
+<script>
+function register() {
+    let phone = document.getElementById("phone").value;
+
+    if(phone === ""){
+        alert("من فضلك ادخل رقم الموبايل");
+    } else {
+        alert("تم التسجيل بنجاح");
+    }
+}
+</script>
 
 </body>
 </html>
+
